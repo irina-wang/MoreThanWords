@@ -310,10 +310,11 @@ def verify():
 @requires_auth(sf)
 def HomeScreenOutcome(user):
     def HomeScreenoutcomes(pod_map_name):
+	# parses arguments that user sent via query string
         user_id = user.get('id')
 
+	# Extract current pod to update from request arguments
         desc = getattr(sf, pod_map_name).describe()
-
         field_names_and_labels = [(field['name'], field['label']) for field in desc['fields']]
         filtered_field_names = [field for field in field_names_and_labels if "Completed__c" in field[0] or field[0] == "Total_Checked__c"]
         Pod_field_names = [field[0] for field in filtered_field_names]
@@ -388,7 +389,8 @@ def podOutcomes(user):
 
     # organizing and putting data into dictionary outcome_dict
     outcome_dict = {}
-    for field in pod_field_names:
+    for field in pod_field_names: 
+	# 3:6 search for 'POD', based on organzation's own coding system in sf
         field_type = field[3:6].upper()
         outcome_dict[field_type] = {}
         
