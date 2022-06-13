@@ -10,6 +10,7 @@ import { getAccessToken } from '../../utils/auth.js';
 const server_add = Constants.manifest.extra.apiUrl;
 
 export default class HomeScreen extends React.Component {
+    // set initial state for pod updates
     state = {
         numSucceeded: 0,
         refreshing: false,
@@ -17,6 +18,7 @@ export default class HomeScreen extends React.Component {
         progress_data: null
     }
 
+    // 
     fetchData = async (set_loading = true) => {
         if (set_loading) this.setState({loading: true});
         let { pods } = this.state;
@@ -56,7 +58,15 @@ export default class HomeScreen extends React.Component {
                         refreshing={this.state.refreshing} 
                         onRefresh={this.fetchData}/>}
             >
+                
+                // Syntax ( condition ? value1 : value2 )
+                
+                // condition ----- 
+                // check if progress_data or pods is empty 
                 {progress_data && pods ?
+                 
+                // value 1 ----- 
+                // assign pod values if data is fetched
                 <SafeAreaView style={{backgroundColor: '#ffffff' }}>
                     {Object.keys(pods).map((pod, index) => 
                                 <HomeScreenPod
@@ -69,6 +79,9 @@ export default class HomeScreen extends React.Component {
                                 />
                     )}
                 </SafeAreaView>  :
+
+                // value 2 ----- 
+                // display white background if data is empty
                 <SafeAreaView style={{backgroundColor: '#ffffff' }}>
                     <LoadingModal/>
                 </SafeAreaView>
