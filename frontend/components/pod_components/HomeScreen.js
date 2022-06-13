@@ -23,8 +23,9 @@ export default class HomeScreen extends React.Component {
         const token = await getAccessToken();
         if (!pods) {
             const res = await fetch(server_add + "/getValidPods", {
-                headers: {
-                    "Authorization": "Bearer " + token
+                headers: { 
+                    // Bearer authentication scheme 
+                    "Authorization": "Bearer " + token 
                 }
             });
             pods = await res.json();
